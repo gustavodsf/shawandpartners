@@ -8,6 +8,40 @@ import path from 'path'
 const router = express.Router()
 const upload = multer({ dest: 'uploads/' })
 
+/**
+ * @swagger
+ * /api/files:
+ *   post:
+ *     summary: Upload a CSV file
+ *     consumes:
+ *       - multipart/form-data
+ *     parameters:
+ *       - in: formData
+ *         name: file
+ *         type: file
+ *         description: The CSV file to upload
+ *     responses:
+ *       200:
+ *         description: The file was uploaded successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: The file was uploaded successfully.
+ *       500:
+ *         description: File upload failed.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: File upload failed.
+ */
 router.post('/', upload.single('file'), (req: Request, res: Response) => {
   if (!req.file) {
     return res.status(500).json({ message: 'No file uploaded' })
