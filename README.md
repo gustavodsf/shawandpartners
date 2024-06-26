@@ -1,7 +1,3 @@
-Sure, here's a comprehensive README for your project:
-
----
-
 # CSV Uploader and Search Application
 
 This project is a full-stack application that allows users to upload a CSV file, search through the data, and display the results as cards. The application is built using React for the frontend and Node.js with Express for the backend. The backend also uses SQLite for data storage.
