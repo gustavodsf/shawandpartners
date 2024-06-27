@@ -1,16 +1,27 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
-    "lib": ["dom", "es2015", "es2017"],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "jsx": "react", // Add this line
-    "esModuleInterop": true, // Ensure this line is present
-    "moduleResolution": "node",
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
-    "noImplicitAny": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react",
+    // Other compiler options...
   },
-  "include": ["src"]
+  "include": [
+    "src/**/*",
+    "src/setupTests.ts",
+    "jest.d.ts"
+    // Include other directories or files as needed
+  ],
+  "types": ["jest", "@testing-library/jest-dom"]
 }

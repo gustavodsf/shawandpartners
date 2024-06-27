@@ -1,0 +1,23 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const files_1 = __importDefault(require("./routes/files"));
+const users_1 = __importDefault(require("./routes/users"));
+const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
+const swagger_1 = require("./swagger");
+const cors_1 = __importDefault(require("cors"));
+const app = (0, express_1.default)();
+app.use(express_1.default.json());
+const port = process.env.PORT || 3000;
+app.use((0, cors_1.default)({
+    origin: ['http://localhost:4000'],
+}));
+app.use('/api/files', files_1.default);
+app.use('/api/users', users_1.default);
+app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.swaggerSpec));
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+});
