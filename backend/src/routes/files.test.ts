@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import request from 'supertest'
 import express, { Request, Response, NextFunction } from 'express'
 import fs from 'fs'
@@ -38,7 +39,7 @@ app.use(express.json())
 app.use('/api/upload', router)
 
 describe('POST /upload', () => {
-  const mockFilePath = path.join(__dirname, 'sample.csv')
+  const mockFilePath = path.join(__dirname, '../../', 'sample.csv')
   const mockFile = Buffer.from(
     'name,city,country,favorite_sport\nJohn Doe,New York,USA,Basketball\n',
   )

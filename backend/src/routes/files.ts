@@ -49,7 +49,7 @@ router.post('/', upload.single('file'), (req: Request, res: Response) => {
 
   const results: UserDTO[] = []
 
-  const filePath = path.join(__dirname, req.file.path)
+  const filePath = path.join(__dirname, '../../', req.file.path)
   fs.createReadStream(filePath)
     .pipe(csv())
     .on('data', (data) => {

@@ -16,7 +16,7 @@ const router = express.Router()
  *         description: The search term
  *     responses:
  *       200:
- *         description: A list of users
+ *         description: A list of matching records
  *         content:
  *           application/json:
  *             schema:
@@ -26,30 +26,32 @@ const router = express.Router()
  *                   type: array
  *                   items:
  *                     type: object
+ *       400:
+ *         description: Query parameter is required
  *       500:
- *         description: An error occurred
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: An error occurred
+ *         description: No matching data found or an error occurred
  */
 router.get('/', (req: Request, res: Response) => {
   const query = req.query.q as string
+  const csvData = getCsvData()
+
   if (!query) {
-    return res.status(500).json({ message: 'Query parameter is missing' })
+    // Return all data if no query parameter is provided
+    return res.status(200).json({ data: csvData })
   }
 
-  const results = getCsvData().filter((row) => {
+  const filteredData = csvData.filter((row) => {
     return Object.values(row).some((value) =>
       value.toString().toLowerCase().includes(query.toLowerCase()),
     )
   })
 
-  res.status(200).json({ data: results })
+  if (filteredData.length === 0) {
+    // Return 500 status code if no matches are found
+    return res.status(500).json({ message: 'No matching data found' })
+  }
+
+  res.status(200).json({ data: filteredData })
 })
 
 export default router
