@@ -1,13 +1,16 @@
 {
   "compilerOptions": {
-    "composite": true,
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "target": "es5",
+    "module": "commonjs",
+    "lib": ["dom", "es2015", "es2017"],
+    "allowJs": true,
+    "jsx": "react", // Add this line
+    "esModuleInterop": true, // Ensure this line is present
+    "moduleResolution": "node",
     "skipLibCheck": true,
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "noEmit": true
+    "noImplicitAny": true,
   },
-  "include": ["vite.config.ts"]
+  "include": ["src"]
 }
