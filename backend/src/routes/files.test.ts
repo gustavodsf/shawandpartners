@@ -14,10 +14,16 @@ jest.mock('multer', () => {
       return (req: Request, res: Response, next: NextFunction) => {
         if (shouldAttachFile) {
           req.file = {
+            fieldname: 'file',
             originalname: 'sample.csv',
+            encoding: '7bit',
             mimetype: 'text/csv',
-            path: 'sample.csv',
+            size: 12345, // Replace with the actual file size
+            destination: 'uploads/', // Replace with the actual destination path
+            filename: 'sample.csv', // Replace with the actual filename
+            path: 'uploads/sample.csv', // Replace with the actual file path
             buffer: Buffer.from('name,city,country\nJohn Doe,New York,USA\n'),
+            stream: fs.createReadStream('uploads/sample.csv'), // Replace with the actual file stream
           }
         }
         return next()
@@ -25,7 +31,7 @@ jest.mock('multer', () => {
     },
   })
   multer.memoryStorage = () => jest.fn()
-  multer.setShouldAttachFile = (value) => {
+  multer.setShouldAttachFile = (value: boolean) => {
     shouldAttachFile = value
   }
   return multer
